@@ -1,0 +1,5 @@
+D:\UniWin\QuanLyTroChoi\Src\TigerApp\EventManager.ApiModels\bin\Release\EventManager.ApiModels.dll
+D:\UniWin\QuanLyTroChoi\Src\TigerApp\EventManager.ApiModels\bin\Release\EventManager.ApiModels.pdb
+D:\UniWin\QuanLyTroChoi\Src\TigerApp\EventManager.ApiModels\obj\Release\EventManager.ApiModels.dll
+D:\UniWin\QuanLyTroChoi\Src\TigerApp\EventManager.ApiModels\obj\Release\EventManager.ApiModels.pdb
+D:\UniWin\QuanLyTroChoi\Src\TigerApp\EventManager.ApiModels\obj\Release\EventManager.ApiModels.csprojResolveAssemblyReference.cache

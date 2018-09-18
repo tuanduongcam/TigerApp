@@ -1,0 +1,179 @@
+﻿@model List<EventManager.ApiModels.ApiAccountModel>
+
+@*<script src="~/Scripts/angular-ui/angular.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+	<link href="~/Scripts/angular-ui/bootstrap.min.css" rel="stylesheet" />*@
+<script src="~/Scripts/angular-ui/angular.js"></script>
+<script src="~/Scripts/angular-ui/angular-resource.js"></script>
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls-0.11.0.js"></script> 
+<script src="~/Scripts/Internal/Account.js"></script>  
+<script src="~/Vendor/DataTables/media/js/jquery.dataTables.min.js"></script>
+ 
+
+    
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+       
+    
+
+
+
+<link rel="stylesheet" href="~/Vendor/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+<script src="~/Vendor/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="~/Vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Vendor/pdfmake/build/pdfmake.min.js"></script>
+<script src="~/Vendor/pdfmake/build/vfs_fonts.js"></script>
+<script src="~/Vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="~/Vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="~/Vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/Vendor/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+
+<div class="hpanel" style="margin-bottom:20px" ng-app="Homeapp" ng-controller="HomeController">
+	<div class="panel-heading">
+		@*<div class="panel-tools">
+				<a class="showhide"><i class="fa fa-chevron-up"></i></a>
+				<a class="closebox"><i class="fa fa-times"></i></a>
+			</div>*@
+		Accounts
+
+		<p>Filter</p>
+
+		<select ng-model="searchCity" ng-change="criteriachanged()">
+			<option ng-repeat="y in cities" value="{{y.CityId}}">{{y.Name}}</option>
+		</select>
+	</div>
+
+	<div class="panel-body" >
+		<div class="table-responsive">
+			<table id="example1" class="table table-striped table-bordered table-hover" style="width:100%">
+				<thead>
+					<tr>
+						<th>Tên Đăng Nhập</th>
+						<th>Số Căn Cước/CMND</th>
+						<th>Họ</th>
+						<th ng-click="orderByMe('LastName')">Tên</th>
+						<th ng-click="orderByMe('BirthDate')">Ngày Sinh</th>
+						<th>Số Điện Thoại</th>
+						<th>Mã Thiết Bị</th>
+						<th>QR Code</th>
+						<th>Thành Phố</th>
+						<th>Actions</th>
+					</tr>
+					<tr>
+						<th colspan="10" ><input type="text" ng-model="searchText" style="width:100%"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					@*<tr dir-paginate="Emp in employees" >*@
+					<tr ng-repeat="Emp in employees | filter : searchText | orderBy:myOrderBy">
+						<td>
+							{{Emp.UserName}}
+						</td>
+						<td>
+							{{Emp.Address}}
+
+						</td>
+						<td>
+							{{Emp.FirstName}}
+						</td>
+						<td>
+							{{Emp.LastName}}
+						</td>
+						<td>
+							{{Emp.BirthDate | date : "dd-MM-yyyy"}}
+						</td>
+						<td>
+							{{Emp.PhoneNumber}}
+						</td>
+						<td>
+							{{Emp.DeviceId}}
+						</td>
+						<td>
+							{{Emp.QRCode}}
+						</td>
+						<td>
+							{{Emp.CityName}}
+						</td>
+						<td style="width:200px;">
+							<a href="#"
+							   class="btn btn-info"
+							   data-toggle="modal"
+							   data-target="#Update"
+							   ng-click="getForUpdate(Emp)">
+								Update
+							</a>
+							<a href="#" class="btn btn-danger"
+							   id="btnDelete"
+							   data-toggle="modal"
+							   data-target="#deleteDialog"
+							   ng-click="getForDelete(Emp)">
+								Delete
+							</a>
+						</td>
+					</tr>			
+				
+				
+				</tbody>
+				<tfoot>
+					<tr>
+						<td align="center" colspan="9">
+							@*<td align="center" colspan="6">
+					<span class="form-group pull-left page-size form-inline">
+						<select id="ddlPageSize" class="form-control control-color"
+								ng-model="pageSize"
+								ng-change="changePageSize()">
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+						</select>
+					</span>*@
+							<div class="pull-right">
+								<pagination total-items="totalCount" ng-change="pagechanged()" items-per-page="pageSize" direction-links="true" ng-model="pageIndex" max-size="maxsize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+
+
+							</div>
+
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			
+			
+		</div>
+
+	</div>
+</div>
+
+@*Upadate Account *@
+<div class="modal" id="Update" role="dialog" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3 class="text-info">Update Existing Employee</h3>
+			</div>
+			<div class="modal-body" style="margin-left:20px">
+				@*Update Employee form starts here...*@
+				<form class="form-horizontal" name="UpdateEmployeeForm">
+					<div class="form-group">
+						@*<input class="form-control" readonly="readonly" name="Address" text="e.Address" type="hidden" placeholder="Address" />*@
+					</div>
+					<div class="form-group">
+						<label class="text-info"> Employee Name</label>
+						<input class="form-control" name="Address1" ng-model="{{PhoneNumber}}" type="text" placeholder="Address" />
+					</div>
+					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="btnUpdate" data-dismiss="modal" ng-click="update()">
+					Update
+				</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

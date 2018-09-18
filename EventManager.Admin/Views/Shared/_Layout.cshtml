@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>EVENT MANAGER PORTAL | @ViewBag.Title</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">*@
+    @*<link href="~/Content/Site.css" rel="stylesheet">*@
+  
+
+	
+
+    <link rel="stylesheet" href="~/Vendor/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/Vendor/metisMenu/dist/metisMenu.css" />
+    <link rel="stylesheet" href="~/Vendor/animate.css/animate.css" />
+    <link rel="stylesheet" href="~/Vendor/bootstrap/dist/css/bootstrap.css" />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="~/Icons/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="~/Icons/pe-icon-7-stroke/css/helper.css" />
+    <link href="~/Content/style.css" rel="stylesheet">
+    
+    <!-- Vendor scripts -->
+    <script src="~/Vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/Vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Vendor/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Vendor/jquery-flot/jquery.flot.js"></script>
+    <script src="~/Vendor/jquery-flot/jquery.flot.resize.js"></script>
+    <script src="~/Vendor/jquery-flot/jquery.flot.pie.js"></script>
+    <script src="~/Vendor/flot.curvedlines/curvedLines.js"></script>
+    <script src="~/Vendor/jquery.flot.spline/index.js"></script>
+    <script src="~/Vendor/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="~/Vendor/iCheck/icheck.min.js"></script>
+    <script src="~/Vendor/peity/jquery.peity.min.js"></script>
+    <script src="~/Vendor/sparkline/index.js"></script>
+
+    <!-- App scripts -->
+    <script src="~/Scripts/homer.js"></script>
+    <script src="~/Scripts/charts.js"></script>
+    
+    
+    <!-- Primary vendor style -->
+    @*@Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")*@
+    @*@Styles.Render("~/bundles/bootstrap/css")*@
+    @*@Styles.Render("~/bundles/peicon7stroke/css")*@
+
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+                                              
+    <!-- Primary HOMER style -->
+    @*@Styles.Render("~/bundles/homer/css")*@
+</head>
+<body class="@EventManager.Admin.Helpers.HMTLHelperExtensions.PageClass(this.Html)">
+
+    <!-- Simple splash screen-->
+    <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Homer - Responsive Admin Theme</h1><p>Special Admin Theme for small and medium webapp with very clean and aesthetic style and feel. </p><div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>
+    <!--[if lt IE 7]>
+    <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Header -->
+    <div id="header">
+        @Html.Partial("_Header")
+    </div>
+
+    <!-- Navigation -->
+    <aside id="menu">
+        @Html.Partial("_Navigation")
+    </aside>
+
+    <!-- Main view  -->
+    <div id="wrapper">
+        @RenderBody()
+
+        <!-- Right Sidebar -->
+        @Html.Partial("_Right_Sidebar")
+
+        <!-- Footer-->
+        @Html.Partial("_Footer")
+    </div>
+
+    <!-- Section for main scripts render -->
+    @*@Scripts.Render("~/bundles/Scritps")*@
+    @*@Scripts.Render("~/bundles/jquery/js")
+        @Scripts.Render("~/bundles/bootstrap/js")
+        @Scripts.Render("~/bundles/homer/js")*@
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+
+    
+
+    <script>
+
+        $(function () {
+
+            /**
+             * Flot charts data and options
+             */
+            var data1 = [[0, 55], [1, 48], [2, 40], [3, 36], [4, 40], [5, 60], [6, 50], [7, 51]];
+            var data2 = [[0, 56], [1, 49], [2, 41], [3, 38], [4, 46], [5, 67], [6, 57], [7, 59]];
+
+            var chartUsersOptions = {
+                series: {
+                    splines: {
+                        show: true,
+                        tension: 0.4,
+                        lineWidth: 1,
+                        fill: 0.4
+                    },
+                },
+                grid: {
+                    tickColor: "#f0f0f0",
+                    borderWidth: 1,
+                    borderColor: 'f0f0f0',
+                    color: '#6a6c6f'
+                },
+                colors: ["#62cb31", "#efefef"],
+            };
+
+            $.plot($("#flot-line-chart"), [data1, data2], chartUsersOptions);
+
+            /**
+             * Flot charts 2 data and options
+             */
+            var chartIncomeData = [
+                {
+                    label: "line",
+                    data: [[1, 10], [2, 26], [3, 16], [4, 36], [5, 32], [6, 51]]
+                }
+            ];
+
+            var chartIncomeOptions = {
+                series: {
+                    lines: {
+                        show: true,
+                        lineWidth: 0,
+                        fill: true,
+                        fillColor: "#64cc34"
+
+                    }
+                },
+                colors: ["#62cb31"],
+                grid: {
+                    show: false
+                },
+                legend: {
+                    show: false
+                }
+            };
+
+            $.plot($("#flot-income-chart"), chartIncomeData, chartIncomeOptions);
+
+
+
+        });
+
+    </script>
+</body>
+</html>

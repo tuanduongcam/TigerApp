@@ -1,0 +1,101 @@
+﻿@model MasterHost.DataModel.Models.Subscription
+
+@{
+    ViewBag.Title = "Validation";
+}
+
+<script src="~/Vendor/jquery-validation/jquery.validate.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $("#createAccountForm").validate({
+            rules: {
+                Code: {
+                    required: true,
+                    minlength: 3
+                },
+                Name: {
+                    required: true,
+                    minlength: 8
+                }
+
+            },
+            messages: {
+                Code: {
+                    required: '@Resources.Resource.TenantCodeIsRequired'
+                }
+            }
+        });
+    });
+</script>
+<div class="small-header">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="~/ServiceAccount/List">My Account</a></li>
+
+                    <li class="active">
+                        <span>Purchase Service </span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Purchase Service
+            </h2>
+            @* <small>it is strongly recommended that you create one account, Unless you have many subsidiaries</small>*@
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "SubScription", FormMethod.Post, new { @id = "createAccountForm", @name = "createAccountForm", @role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                @*<label>Username</label>
+                                    <input type="text" value="" id="" class="form-control" name="">*@
+                                @Html.HiddenFor(m => m.ServiceId)
+                                @Html.LabelFor(m => m.ServiceId)
+                                @Html.DisplayFor(m=>m.Service.Name, new { @class = "form-control", @id = "ServiceName", @name = "ServiceName" })
+
+                            </div>
+                            <div class="form-group col-lg-6">
+                                @Html.HiddenFor(m => m.SubscriptionType)
+                                @*<label>Password</label>
+                                    <input type="password" value="" id="" class="form-control" name="">*@
+                                @Html.LabelFor(m => m.SubscriptionType)
+                                <label>@Resources.Resource.ResourceManager.GetString(Model.SubscriptionType)</label>
+                                @Html.Display(@Resources.Resource.ResourceManager.GetString(Model.SubscriptionType), new { @class = "form-control", @id = "ServiceName", @name = "ServiceName" })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                @Html.HiddenFor(m => m.TentantId)
+                                @*<label>Repeat Password</label>
+                                    <input type="password" value="" id="" class="form-control" name="">*@
+                                @Html.LabelFor(m => m.TentantId)
+                                @Html.DisplayFor(m=>m.Tentant.Name, new { @class = "form-control", @id = "ServiceName", @name = "ServiceName" })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                @Html.HiddenFor(m => m.Price)
+                                @Html.LabelFor(m => m.Price)
+                                @Html.DisplayFor(m => m.Price, new { @class = "form-control", @value = "", @id = "Price", @name = "Price", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div>
+                            @*<button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit</strong></button>*@
+                            <input type="submit" value="Confirm" class="btn btn-sm btn-primary m-t-n-xs" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

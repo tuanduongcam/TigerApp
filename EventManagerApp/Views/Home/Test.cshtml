@@ -1,0 +1,28 @@
+﻿@model EventManager.Web.Models.UserInfoViewModel
+<input type="file" id="imageFile"/>
+<button value="Upload" onclick="uploadImg()">Upload</button>
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    function uploadImg() {
+        var file = document.getElementById("imageFile").files[0];
+        var data = new FormData();
+        var files = $("#imageFile").get(0).files;
+        // Add the uploaded image content to the form data collection
+        if (files.length > 0) {
+            data.append("UploadedImage", files[0]);
+        }
+      //  data.append('UserId', '1c723b6b-f6ce-46d1-952e-703f9e7dc4b0');
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:44305/api/Account/PostSignatureImage",
+            contentType: false,
+            processData: false,
+            data: data
+        });
+    }
+</script>
+
+<video width="480" height="320" controls="controls" autoplay="autoplay">
+	<source src="http://localhost:44305/api/video/live?videoFileId=1001&fileName=test1.mp4" type="video/mp4" />
+
+</video>

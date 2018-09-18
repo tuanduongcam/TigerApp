@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Services";
+}
+
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Services</a></li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Services
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="hpanel hgreen contact-panel">
+                <div class="panel-body">
+                    @*<span class="label label-success pull-right">NEW</span>*@
+                    <a href="~/LandingPage" target="_blank"><img alt="logo" src="~/Content/img/flexreal.png" style="width:150px" /></a>
+                    <h3><a href="~/LandingPage" target="_blank"> FlexReal </a></h3>
+                    <div class="text-muted font-bold m-b-xs">An Affordable Properties Management system.</div>
+                </div>
+                <div class="panel-footer contact-footer">
+                    <div class="row">
+                        <div class="col-md-12"> <div class="contact-stat"><strong>Price: start at 400/Month</strong><a href="~/SubScription/Create/FLEXREAL" class="btn btn-success btn-sm"> Purchase Now </a> <a href="~/LandingPage#pricing" class="btn btn-success btn-sm" target="_blank">Learn more</a></div> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

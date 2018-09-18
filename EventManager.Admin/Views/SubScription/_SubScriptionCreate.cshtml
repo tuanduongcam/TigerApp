@@ -1,0 +1,123 @@
+﻿@model MasterHost.DataModel.Models.Subscription
+
+@{
+    ViewBag.Title = "Validation";
+}
+
+<script src="~/Vendor/jquery-validation/jquery.validate.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#SubscriptionType").change(function () {
+            GetPrice();
+        });
+
+        $("#createAccountForm").validate({
+            rules: {
+                Code: {
+                    required: true,
+                    minlength: 3
+                },
+                Name: {
+                    required: true,
+                    minlength: 8
+                }
+
+            },
+            messages: {
+                Code: {
+                    required: '@Resources.Resource.TenantCodeIsRequired'
+                }
+            }
+        });
+
+
+
+
+    });
+
+    function GetPrice() {
+        var selectedValue = $("#SubscriptionType").val();
+       
+        $.ajax({
+            url: '/ServicePrice/GetServicePriceByServicePlan?serviceName=FLEXREAL&plan=' + selectedValue,
+            cache: false,
+            type: "GET",
+            success: function (data) {              
+                $("#Price").val(data);               
+            },
+            error: function () {
+                alert('Cannot retrieve the data');
+            }
+        });
+    }
+</script>
+<div class="small-header">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="~/ServiceAccount/List">My Account</a></li>
+
+                    <li class="active">
+                        <span>Purchase Service </span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Purchase Service
+            </h2>
+           @* <small>it is strongly recommended that you create one account, Unless you have many subsidiaries</small>*@
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-body">                    
+                    @using (Html.BeginForm("Preview", "SubScription", FormMethod.Post, new { @id = "createAccountForm", @name = "createAccountForm", @role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                @Html.HiddenFor(m => m.Service.ServiceId)
+                                @*<label>Username</label>
+                                    <input type="text" value="" id="" class="form-control" name="">*@
+                                @Html.LabelFor(m => m.ServiceId)
+                                @Html.DropDownListFor(model => model.ServiceId, ViewBag.listAllproduct as SelectList, new { @id = "ServiceId", @class = "form-control m-b" })
+
+                            </div>
+                            <div class="form-group col-lg-6">
+                                @*<label>Password</label>
+                                    <input type="password" value="" id="" class="form-control" name="">*@
+                                @Html.LabelFor(m => m.SubscriptionType)
+                                @Html.DropDownListFor(model => model.SubscriptionType, ViewBag.listAllSubscriptionType as SelectList, @Resources.Resource.SelectAnItem, new { @id = "SubscriptionType", @class = "form-control m-b" })
+                               
+                            </div>
+                            <div class="form-group col-lg-6">
+                                @Html.HiddenFor(m => m.Tentant.TentantId)
+                                @*<label>Repeat Password</label>
+                                    <input type="password" value="" id="" class="form-control" name="">*@
+                                @Html.LabelFor(m => m.TentantId)
+                                @Html.DropDownListFor(model => model.TentantId, ViewBag.listAllTenant as SelectList, new { @id = "TentantId", @class = "form-control m-b" })
+                            </div>
+                            <div class="form-group col-lg-6">                               
+                                @Html.LabelFor(m => m.Price)                               
+                                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @value = "", @id = "Price", @name = "Price", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div>
+                            @*<button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit</strong></button>*@
+                            <input type="submit" value="Submit" class="btn btn-sm btn-primary m-t-n-xs" />
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

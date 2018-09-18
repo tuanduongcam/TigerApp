@@ -1,0 +1,127 @@
+﻿@model List<MasterHost.DataModel.Models.Tentant>
+<div class="hpanel">
+    <div class="panel-heading">
+        <div class="panel-tools">
+            @*<a class="showhide"><i class="fa fa-chevron-up"></i></a>
+            <a class="closebox"><i class="fa fa-times"></i></a>*@
+            
+        </div>
+        My Account(s)
+    </div>
+    <div class="hpanel">
+        <div class="panel-heading">
+            <div class="panel-tools">
+                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                @*<a class="closebox"><i class="fa fa-times"></i></a>*@
+            </div>
+          Toolbar
+        </div>
+        <div class="panel-body float-e-margins">
+            
+            <button class="btn btn-primary" type="button"><i class="fa fa-plus"></i> <br />Add</button>
+            <button class="btn btn-danger2" type="button"><i class="fa fa-remove"></i> <br />Delete</button>
+           
+        </div>
+    </div>
+    <div class="panel-body">
+        
+        <div class="table-responsive">
+            <table id="example2" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Business register Id</th>
+                        <th>Address</th>
+                        <th>Country</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Mobile</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int j = 0; j < Model.Count; j++)
+                    {
+                       
+                        <tr >
+                            <td>@Html.CheckBox("mycheck")</td>
+                            <td><a href="#"><i class="fa fa-edit"></i>  </a></td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].TenantMapId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].TentantType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].IDCard)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].TentantAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].Nationality)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m[j].Mobile)
+                            </td>
+                            
+                        </tr>
+
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/Vendor/datatables/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/Vendor/datatables/js")
+    @Scripts.Render("~/Vendor/datatablesBootstrap/js")
+    @Scripts.Render("~/Vendor/datatablesPlugins/js")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            // JSON data
+            var chartDataUrl = '@Url.Action("tableJsonData", "Tables")';
+
+            // Initialize Example 1
+            $('#example1').dataTable({
+                "ajax": chartDataUrl,
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', title: 'ExampleFile', className: 'btn-sm' },
+                    { extend: 'pdf', title: 'ExampleFile', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                ]
+            });
+
+            // Initialize Example 2
+            $('#example2').dataTable();
+
+        });
+
+    </script>
+}
