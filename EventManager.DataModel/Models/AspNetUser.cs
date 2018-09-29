@@ -13,7 +13,7 @@ namespace EventManager.DataModel.Models
             this.EventRegisters = new List<EventRegister>();
             this.AspNetRoles = new List<AspNetRole>();
 			this.UserGiftRedeems = new List<UserGiftRedeem>();
-
+			this.Clips = new List<Clip>();
         }
 
         public string Id { get; set; }
@@ -52,7 +52,11 @@ namespace EventManager.DataModel.Models
 		public int UserType { get; set; }
         public string DeviceId { get; set; }
 
+		public string ProfileImagePath { get; set; }
+
+		public string ProfileIdenImagePath { get; set; }
 		
+
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<EventRegister> EventRegisters { get; set; }
@@ -60,6 +64,7 @@ namespace EventManager.DataModel.Models
 		public virtual ICollection<AspNetUserImg> AspNetUserImages { get; set; }
 		public virtual ICollection<UserGiftRedeem> UserGiftRedeems { get; set; }
 
+		public virtual ICollection<Clip> Clips { get; set; }
 	
     }
 }

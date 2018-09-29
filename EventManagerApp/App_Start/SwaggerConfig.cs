@@ -52,6 +52,7 @@ namespace EventManager.Web
                        // c.SingleApiVersion("v1", "EventManager.Web");
 						/* c.OperationFilter<FileOperationFilter>();*/
                         c.OperationFilter<ImportFileParamType>();
+						c.OperationFilter<ImportMultipleFileParamType>();
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
@@ -284,7 +285,7 @@ namespace EventManager.Web
         }
         public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
         {
-            if (operation.operationId == "Account_PostSignatureImage")  // controller and action name
+			if (operation.operationId == "Account_PostSignatureImage" || operation.operationId == "Clip_PostClip")  // controller and action name
             {
                 operation.consumes.Add("multipart/form-data");
 				if (operation.parameters == null)
@@ -304,4 +305,50 @@ namespace EventManager.Web
             }
         }
     }
+
+	public class ImportMultipleFileParamType : IOperationFilter
+	{
+		[AttributeUsage(AttributeTargets.Method)]
+		public sealed class SwaggerFormAttribute : Attribute
+		{
+			public SwaggerFormAttribute(string name, string description)
+			{
+				Name = name;
+				Description = description;
+			}
+			public string Name { get; private set; }
+
+			public string Description { get; private set; }
+		}
+		public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
+		{
+			if (operation.operationId == "Account_PostMultipleImage")  // controller and action name
+			{
+				operation.consumes.Add("multipart/form-data");
+				if (operation.parameters == null)
+					operation.parameters = new List<Parameter>(1);
+				else
+					operation.parameters.Clear();
+				operation.parameters = new List<Parameter>
+                {
+                    new Parameter
+                    {
+                        name = "file",
+                        required = true,
+                        type = "file",
+						@in = "formData",
+                    }
+                };
+				operation.parameters.Add(
+					new Parameter
+					{
+						name = "file",
+						required = true,
+						type = "file",
+						@in = "formData",
+					}
+				);
+			}
+		}
+	}
 }

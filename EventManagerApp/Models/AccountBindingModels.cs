@@ -79,6 +79,8 @@ namespace EventManager.Web.Models
 		public int Status { get;set; }
 
 		public int UserType { get; set; }
+		public string ProfileImagePath { get; set; }
+		public string ProfileIdenImagePath { get; set; }
 	
     }
 
@@ -104,7 +106,10 @@ namespace EventManager.Web.Models
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		
-		public System.DateTime BirthDate { get; set; }	
+		public System.DateTime BirthDate { get; set; }
+
+		public string ProfileImagePath { get; set; }
+		public string ProfileIdenImagePath { get; set; }
 	}
 
     public class RegisterExternalBindingModel

@@ -743,33 +743,69 @@ namespace EventManager.Web.Controllers
         }
 
         #endregion
+		
+
 		[ValidateMimeMultipartContentFilter]
-        [Route("PostSignatureImage")]
-        [ImportFileParamType.SwaggerFormAttribute("ImportImage", "Upload image file")]
-        [AllowAnonymous]
+		[Route("PostSignatureImage")]
+		[ImportFileParamType.SwaggerFormAttribute("ImportImage", "Upload image file")]
+		[AllowAnonymous]
 		[HttpPost]
 		public APIResponse PostSignatureImage()
-        {
-            try
-            {
-                eResponseStatus status = eResponseStatus.Success;
-				var httpPostedFile =  HttpContext.Current.Request.Files[0];
-                var filePath = "Images/" + new Random().Next().ToString() + httpPostedFile.FileName;
-                if (httpPostedFile != null)
-                {
-                    var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/"), filePath);
-                    httpPostedFile.SaveAs(fileSavePath);
-                }
-                //IUserService user = new UserService();
-                //user.SaveSignatureImage(userId, filePath);
-                return new APIResponse() { Status = status, Result = filePath };
-            }
-            catch (Exception ex)
-            {
-                return new APIResponse() { Status = eResponseStatus.Fail, Message = "Please Upload image of type .jpg,.gif,.png." };
-            }
+		{
+			try
+			{
+				eResponseStatus status = eResponseStatus.Success;
+				var httpPostedFile = HttpContext.Current.Request.Files[0];
+				var filePath = "Images/" + new Random().Next().ToString() + httpPostedFile.FileName;
+				if (httpPostedFile != null)
+				{
+					var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/"), filePath);
+					httpPostedFile.SaveAs(fileSavePath);
+				}
+				//IUserService user = new UserService();
+				//user.SaveSignatureImage(userId, filePath);
+				return new APIResponse() { Status = status, Result = filePath };
+			}
+			catch (Exception ex)
+			{
+				return new APIResponse() { Status = eResponseStatus.Fail, Message = "Please Upload image of type .jpg,.gif,.png." };
+			}
+		}
 
-        }
+		[ValidateMimeMultipartContentFilter]
+		[Route("PostMultipleImage")]
+		[ImportMultipleFileParamType.SwaggerFormAttribute("PostMultipleImage", "Upload image file")]
+		[AllowAnonymous]
+		[HttpPost]
+		public APIResponse PostMultipleImage()
+		{
+			try
+			{
+				eResponseStatus status = eResponseStatus.Success;
+				var httpPostedFile = HttpContext.Current.Request.Files[0];
+				var filePath = "Images/" + new Random().Next().ToString() + httpPostedFile.FileName;
+				if (httpPostedFile != null)
+				{
+					var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/"), filePath);
+					httpPostedFile.SaveAs(fileSavePath);
+				}
+
+				var httpPostedFile2 = HttpContext.Current.Request.Files[1];
+				var filePath2 = "Images/" + new Random().Next().ToString() + httpPostedFile.FileName;
+				if (httpPostedFile2 != null)
+				{
+					var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/"), filePath2);
+					httpPostedFile2.SaveAs(filePath2);
+				}
+				//IUserService user = new UserService();
+				//user.SaveSignatureImage(userId, filePath);
+				return new APIResponse() { Status = status, Result = filePath };
+			}
+			catch (Exception ex)
+			{
+				return new APIResponse() { Status = eResponseStatus.Fail, Message = "Please Upload image of type .jpg,.gif,.png." };
+			}
+		}
 		[AllowAnonymous]
 		[HttpPost]
 		public  HttpResponseMessage  PostFormData()

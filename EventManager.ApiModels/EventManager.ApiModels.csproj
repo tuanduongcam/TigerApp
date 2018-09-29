@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiAccountImage.cs" />
+    <Compile Include="ApiClipModel.cs" />
     <Compile Include="ApiGifModel.cs" />
     <Compile Include="ApiRemainingPoint.cs" />
     <Compile Include="ApiUserGifRedeemModel.cs" />

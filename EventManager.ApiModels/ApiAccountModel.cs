@@ -40,9 +40,11 @@ namespace EventManager.ApiModels
 
 		public string SignatureImgPath { get; set; }
 		public string DeviceId { get; set; }
-
+		
 		public int UserType { get; set; }
 
 		public string CityName { get; set; }
+		public string ProfileImagePath { get; set; }
+		public string ProfileIdenImagePath { get; set; }
 	}
 }

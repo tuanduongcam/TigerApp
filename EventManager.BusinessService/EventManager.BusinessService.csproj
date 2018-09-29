@@ -56,6 +56,7 @@
     <Compile Include="AccountBusinessService.cs" />
     <Compile Include="AccountImageBusinessService.cs" />
     <Compile Include="CityBusinessService.cs" />
+    <Compile Include="ClipBusinessService.cs" />
     <Compile Include="ContentBusinessService.cs" />
     <Compile Include="EventCampaignBusinessService.cs" />
     <Compile Include="GifBusinessService.cs" />

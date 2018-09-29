@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AccountImageController.cs" />
     <Compile Include="Controllers\AppInfoController.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\ClipController.cs" />
     <Compile Include="Controllers\EventCampaignController.cs" />
     <Compile Include="Controllers\EventRegisterController.cs" />
     <Compile Include="Controllers\FileOperationFilter.cs" />

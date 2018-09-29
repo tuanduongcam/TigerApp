@@ -70,6 +70,8 @@ namespace EventManager.BusinessService
 				model.IdentityNumber = uAccount.IdentityNumber;
 				model.SignatureImgPath = uAccount.SignatureImgPath;
 				model.UserType = uAccount.UserType;
+				model.ProfileIdenImagePath = uAccount.ProfileIdenImagePath;
+				model.ProfileImagePath = uAccount.ProfileImagePath;
 			}
 			return model;
 		}
@@ -98,6 +100,8 @@ namespace EventManager.BusinessService
 				model.IdentityNumber = uAccount.IdentityNumber;
 				model.SignatureImgPath = uAccount.SignatureImgPath;
 				model.UserType = uAccount.UserType;
+				model.ProfileIdenImagePath = uAccount.ProfileIdenImagePath;
+				model.ProfileImagePath = uAccount.ProfileImagePath;
 			}
 			return model;
 		}
@@ -128,6 +132,8 @@ namespace EventManager.BusinessService
 					model.IdentityNumber = uAccount.IdentityNumber;
 					model.SignatureImgPath = uAccount.SignatureImgPath;
 					model.UserType = uAccount.UserType;
+					model.ProfileIdenImagePath = uAccount.ProfileIdenImagePath;
+					model.ProfileImagePath = uAccount.ProfileImagePath;
 				}
 			}
 			return model;
@@ -159,6 +165,8 @@ namespace EventManager.BusinessService
 					model.IdentityNumber = uAccount.IdentityNumber;
 					model.SignatureImgPath = uAccount.SignatureImgPath;
 					model.UserType = uAccount.UserType;
+					model.ProfileIdenImagePath = uAccount.ProfileIdenImagePath;
+					model.ProfileImagePath = uAccount.ProfileImagePath;
 				}
 			}
 			return model;
@@ -189,7 +197,9 @@ namespace EventManager.BusinessService
 							UserType = c.UserType,
 							SignatureImgPath = c.SignatureImgPath,
 							Address = c.Address,
-							CityName = c.UserCity.Name
+							CityName = c.UserCity.Name,
+							ProfileIdenImagePath = c.ProfileIdenImagePath,
+							ProfileImagePath = c.ProfileImagePath
 						}
 					);
 				return model.ToList();				

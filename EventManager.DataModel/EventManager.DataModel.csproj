@@ -56,6 +56,8 @@
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\AspNetUserClaim.cs" />
     <Compile Include="Models\AspNetUserLogin.cs" />
+    <Compile Include="Models\Clip.cs" />
+    <Compile Include="Models\Mapping\ClipMap.cs" />
     <Compile Include="Models\Mapping\UserGiftRedeemMap.cs" />
     <Compile Include="Models\UserGiftRedeem.cs" />
     <Compile Include="Models\Gift.cs" />

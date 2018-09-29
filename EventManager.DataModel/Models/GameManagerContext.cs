@@ -34,7 +34,8 @@ namespace EventManager.DataModel.Models
         public DbSet<Gift> Gifts { get; set; }
 		public DbSet<EventRegister> EventRegisters { get; set; }
 		public DbSet<UserGiftRedeem> UserGiftRedeems { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
+		public DbSet<sysdiagram> sysdiagrams { get; set; }
+		public DbSet<Clip> Clips { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -52,6 +53,7 @@ namespace EventManager.DataModel.Models
 			modelBuilder.Configurations.Add(new MessageContentSentMap());
 			modelBuilder.Configurations.Add(new GifMap());
 			modelBuilder.Configurations.Add(new UserGiftRedeemMap());
+			modelBuilder.Configurations.Add(new ClipMap());
         }
     }
 }
